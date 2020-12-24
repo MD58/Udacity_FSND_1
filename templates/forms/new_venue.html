@@ -9,14 +9,16 @@
         {{ form.name(class_ = 'form-control', autofocus = true) }}
       </div>
       <div class="form-group">
-          <label>City & State</label>
+          <label>City &#38; State</label>
           <div class="form-inline">
-            <div class="form-group">
-              {{ form.city(class_ = 'form-control', placeholder='City', autofocus = true) }}
-            </div>
-            <div class="form-group">
-              {{ form.state(class_ = 'form-control', placeholder='State', autofocus = true) }}
-            </div>
+              <select autofocus class="form-control" name="city_id" required>
+                <option selected="" disabled="" value="">--- Select City ---</option>
+
+                  		{%for city in cities %}
+                         <option value="{{ city.id }}">{{ city.state }} - {{ city.name }}</option>
+                    {% endfor %}
+    
+              </select>        
           </div>
       </div>
       <div class="form-group">
@@ -30,12 +32,23 @@
       <div class="form-group">
         <label for="genres">Genres</label>
         <small>Ctrl+Click to select multiple</small>
-        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', id=form.state, autofocus = true) }}
+        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', id=form.genre, autofocus = true, required=true) }}
       </div>
       <div class="form-group">
-          <label for="genres">Facebook Link</label>
-          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', id=form.state, autofocus = true) }}
+          <label for="facebook_link">Facebook Link</label>
+          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', id=form.facebookLink, autofocus = true) }}
         </div>
+
+              <div class="form-group">
+          <label for="website_link">Website Link</label>
+          {{ form.website_link(class_ = 'form-control', placeholder='http://', id=form.websiteLink, autofocus = true) }}
+        </div>
+
+              <div class="form-group">
+          <label for="image_link">Image Link</label>
+          {{ form.image_link(class_ = 'form-control', placeholder='http://', id=form.imageLink, autofocus = true) }}
+        </div>
+
       <input type="submit" value="Create Venue" class="btn btn-primary btn-lg btn-block">
     </form>
   </div>

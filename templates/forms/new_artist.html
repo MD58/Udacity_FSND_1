@@ -9,14 +9,16 @@
         {{ form.name(class_ = 'form-control', autofocus = true) }}
       </div>
       <div class="form-group">
-          <label>City & State</label>
-          <div class="form-inline">
-            <div class="form-group">
-              {{ form.city(class_ = 'form-control', placeholder='City', autofocus = true) }}
-            </div>
-            <div class="form-group">
-              {{ form.state(class_ = 'form-control', placeholder='State', autofocus = true) }}
-            </div>
+          <label>City &#38; State</label>
+            <div class="form-inline">
+              <select autofocus class="form-control" name="city_id" required>
+                <option selected="" disabled="" value="">--- Select City ---</option>
+
+                  		{%for city in cities %}
+                         <option value="{{ city.id }}">{{ city.state }} - {{ city.name }}</option>
+                    {% endfor %}
+    
+              </select>        
           </div>
       </div>
       <div class="form-group">
@@ -26,11 +28,11 @@
       <div class="form-group">
         <label for="genres">Genres</label>
         <small>Ctrl+Click to select multiple</small>
-        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', id=form.state, autofocus = true) }}
+        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', id=form.genre, autofocus = true, required=true) }}
       </div>
       <div class="form-group">
           <label for="genres">Facebook Link</label>
-          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', id=form.state, autofocus = true) }}
+          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', id=form.facebookLink, autofocus = true) }}
         </div>
       <input type="submit" value="Create Venue" class="btn btn-primary btn-lg btn-block">
     </form>
