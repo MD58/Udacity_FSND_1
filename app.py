@@ -186,6 +186,7 @@ def create_venue_submission():
     except:
         db.session.rollback()
         error = True
+        flash(sys.exc_info())
     finally:
         db.session.close()
 
@@ -200,6 +201,7 @@ def create_venue_submission():
 def delete_venue(venue_id):
     error = False
     venueName = ''
+    errorMessage = ''
 
     try:      
       venue = Venue.query.filter(Venue.id == venue_id).first()
@@ -217,13 +219,19 @@ def delete_venue(venue_id):
       db.session.commit()      
         
     except:
-        db.session.rollback()
-        error = True
+      db.session.rollback()
+      error = True
+
+      if(Show.query.filter(Show.venue_id == venue_id).count() > 0):
+        errorMessage = 'Venue can not be delete. (some shows are still available in this Venue)'
+      else:
+        errorMessage = 'An error occurred whilte deleting the venue.'
+
     finally:
         db.session.close()
 
     if error:
-      flash('An error occurred whilte deleting the venue', 'error')
+      flash(errorMessage, 'error')
     else:
       flash('Venue: ' + venueName + ' was successfully deleted!')
     
